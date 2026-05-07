@@ -1,0 +1,92 @@
+# ============================================================
+# CARLA 强化学习自动驾驶系统 - 依赖配置文件
+# ============================================================
+# 项目功能：
+#   - PPO 强化学习训练（4D 观测：x, y, vx, vy）
+#   - CARLA 仿真器自主学习驾驶
+#   - 多目标导航与路径规划
+#   - ROS 1 节点封装（训练/评估）
+# ============================================================
+
+# ---------- CARLA 仿真器 ----------
+# CARLA Python API - 与 CARLA 仿真器通信
+# 注意：CARLA 需要单独下载安装，版本需与 Python API 匹配
+# 下载地址：https://github.com/carla-simulator/carla/releases
+# 推荐版本：CARLA 0.9.14 / 0.9.15 / 0.9.16
+carla>=0.9.14
+
+# ---------- 强化学习框架 ----------
+# Stable-Baselines3 - PPO 算法实现
+stable-baselines3>=2.0.0
+
+# Gymnasium - OpenAI Gym 接口（替代 gym）
+gymnasium>=0.29.0
+
+# ---------- 深度学习框架 ----------
+# PyTorch - SB3 的后端神经网络
+# 注意：根据 CUDA 版本选择对应版本
+# CPU 版本：pip install torch
+# CUDA 11.8：pip install torch --index-url https://download.pytorch.org/whl/cu118
+# CUDA 12.1：pip install torch --index-url https://download.pytorch.org/whl/cu121
+torch>=2.0.0
+
+# ---------- 数值计算 ----------
+numpy>=1.24.0
+
+# ---------- 机器人操作系统 ----------
+# ROS 1 (Noetic/Melodic) - ros_eval_node.py 和 ros_train_node.py 需要
+# 注意：ROS 1 需要单独安装，不在此处列出
+# 参考：http://wiki.ros.org/ROS/Installation
+# Ubuntu 20.04: sudo apt install ros-noetic-rospy
+# rospy, std_msgs, rosparam
+
+# ---------- 可选依赖 ----------
+# tensorboard - 训练日志可视化
+tensorboard>=2.13.0
+
+# ============================================================
+# 安装说明
+# ============================================================
+#
+# 1. 基础安装：
+#    pip install -r requirements.txt
+#
+# 2. PyTorch GPU 版本安装（推荐）：
+#    pip install torch --index-url https://download.pytorch.org/whl/cu118
+#
+# 3. CARLA 安装：
+#    - 下载 CARLA 仿真器：https://github.com/carla-simulator/carla/releases
+#    - 推荐版本：CARLA 0.9.14
+#    - 将 CARLA Python API 添加到 Python 路径：
+#      export PYTHONPATH=$PYTHONPATH:/path/to/CARLA/PythonAPI/carla/dist/carla-*.egg
+#
+# 4. ROS 1 安装（Ubuntu 20.04 Noetic）：
+#    sudo apt install ros-noetic-desktop-full
+#    source /opt/ros/noetic/setup.bash
+#
+# 5. 构建 ROS 包：
+#    cd ~/catkin_ws
+#    catkin_make
+#    source devel/setup.bash
+#
+# 6. 运行项目：
+#    - 训练：         python train_agent.py --timesteps 300000
+#    - 评估：         python eval_agent.py --model_path ./checkpoints/best_model.zip
+#    - ROS 训练节点： rosrun carla_rl_ros ros_train_node.py
+#    - ROS 评估节点： rosrun carla_rl_ros ros_eval_node.py
+#    - Launch 文件：  roslaunch carla_rl_ros eval.launch steps:=1000
+#
+# ============================================================
+# 环境验证
+# ============================================================
+#
+# 验证 PyTorch：
+#   python -c "import torch; print(f'PyTorch: {torch.__version__}')"
+#
+# 验证 CARLA（需先启动仿真器）：
+#   python -c "import carla; client = carla.Client('localhost', 2000); print('CARLA OK')"
+#
+# 验证 Stable-Baselines3：
+#   python -c "from stable_baselines3 import PPO; print('SB3 OK')"
+#
+# ============================================================
