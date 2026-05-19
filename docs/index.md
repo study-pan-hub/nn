@@ -78,6 +78,8 @@ title: 主页
 
 [__setup_tool模块汇报文档__](./setup_tool/report.md) - setup_tool 模块背景、改进内容、运行方式与效果总结
 
+[__机械臂自动抓取__](./robot_arm/README.md) - 基于Franka Panda的机械臂自动抓取仿真项目
+
 ## 规划 <span id="planning"></span>
 
 [__导航__](#navigation)
